@@ -1,0 +1,62 @@
+[
+  {
+    "id": "q01",
+    "question": "How many customers are there?",
+    "reference_sql": "SELECT COUNT(*) FROM Customer"
+  },
+  {
+    "id": "q02",
+    "question": "Which country has the most customers? Return the country and the number of customers.",
+    "reference_sql": "SELECT Country, COUNT(*) FROM Customer GROUP BY Country ORDER BY COUNT(*) DESC LIMIT 1"
+  },
+  {
+    "id": "q03",
+    "question": "What is the total revenue across all invoices?",
+    "reference_sql": "SELECT SUM(Total) FROM Invoice"
+  },
+  {
+    "id": "q04",
+    "question": "Which four artists have the most tracks? Return the artist name and the number of tracks.",
+    "reference_sql": "SELECT ar.Name, COUNT(*) FROM Artist ar JOIN Album al ON al.ArtistId = ar.ArtistId JOIN Track t ON t.AlbumId = al.AlbumId GROUP BY ar.ArtistId ORDER BY COUNT(*) DESC LIMIT 4"
+  },
+  {
+    "id": "q05",
+    "question": "What are the top five genres by sales revenue, where revenue is unit price times quantity on each invoice line? Return the genre name and the revenue.",
+    "reference_sql": "SELECT g.Name, SUM(il.UnitPrice * il.Quantity) AS revenue FROM InvoiceLine il JOIN Track t ON t.TrackId = il.TrackId JOIN Genre g ON g.GenreId = t.GenreId GROUP BY g.GenreId ORDER BY revenue DESC LIMIT 5"
+  },
+  {
+    "id": "q06",
+    "question": "Which sales support agent has the highest total invoice revenue from the customers they support? Return the agent's first name, last name and total revenue.",
+    "reference_sql": "SELECT e.FirstName, e.LastName, SUM(i.Total) AS revenue FROM Employee e JOIN Customer c ON c.SupportRepId = e.EmployeeId JOIN Invoice i ON i.CustomerId = c.CustomerId GROUP BY e.EmployeeId ORDER BY revenue DESC LIMIT 1"
+  },
+  {
+    "id": "q07",
+    "question": "What is the average track length in minutes for each media type? Return the media type name and the average length in minutes.",
+    "reference_sql": "SELECT m.Name, AVG(t.Milliseconds) / 60000.0 FROM MediaType m JOIN Track t ON t.MediaTypeId = m.MediaTypeId GROUP BY m.MediaTypeId"
+  },
+  {
+    "id": "q08",
+    "question": "How many invoices were issued in each year? Return the year and the number of invoices.",
+    "reference_sql": "SELECT strftime('%Y', InvoiceDate) AS year, COUNT(*) FROM Invoice GROUP BY year"
+  },
+  {
+    "id": "q09",
+    "question": "Which customers have spent more than $45 in total? Return each customer's first name, last name and total spent.",
+    "reference_sql": "SELECT c.FirstName, c.LastName, SUM(i.Total) FROM Customer c JOIN Invoice i ON i.CustomerId = c.CustomerId GROUP BY c.CustomerId HAVING SUM(i.Total) > 45"
+  },
+  {
+    "id": "q10",
+    "question": "Which three billing cities generated the most invoice revenue? Return the city and its revenue.",
+    "reference_sql": "SELECT BillingCity, SUM(Total) AS revenue FROM Invoice GROUP BY BillingCity ORDER BY revenue DESC LIMIT 3"
+  },
+  {
+    "id": "q11",
+    "question": "How many tracks are longer than 10 minutes?",
+    "reference_sql": "SELECT COUNT(*) FROM Track WHERE Milliseconds > 600000"
+  },
+  {
+    "id": "q12",
+    "question": "How many tracks are in the playlist named Grunge?",
+    "reference_sql": "SELECT COUNT(*) FROM PlaylistTrack pt JOIN Playlist p ON p.PlaylistId = pt.PlaylistId WHERE p.Name = 'Grunge'"
+  }
+]

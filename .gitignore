@@ -1,0 +1,10 @@
+# Downloaded automatically on first run
+data/*.sqlite
+
+# Never commit real keys
+.streamlit/secrets.toml
+.env
+
+.venv/
+__pycache__/
+.pytest_cache/
