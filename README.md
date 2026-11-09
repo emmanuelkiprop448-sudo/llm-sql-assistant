@@ -1,5 +1,7 @@
 # Chinook SQL Assistant: Natural-Language Questions with Guardrails and Evaluation
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/emmanuelkiprop448-sudo/llm-sql-assistant./blob/main/notebooks/run_in_colab.ipynb)
+
 A Streamlit app for asking questions about a sample music-store database in plain English. A language model writes the SQL; the app checks it with read-only guardrails, shows it for review and editing, and only then runs it. A separate evaluation script measures how often the model's SQL returns the correct answer on a set of benchmark questions.
 
 ## Why this project
@@ -43,7 +45,9 @@ Rows are compared in any order, numbers are rounded to two decimal places, and e
 
 ## Run it
 
-You need Python 3.11 or later.
+**In the browser:** open the notebook with the "Open in Colab" button above. It runs the tests, lets you ask questions, and runs the benchmark with a free Gemini API key from Google AI Studio. Nothing is needed on your computer.
+
+**On your computer:** you need Python 3.11 or later.
 
 ```bash
 python -m venv .venv
@@ -54,7 +58,7 @@ pip install -r requirements.txt
 **Choose a model.** Copy `.streamlit/secrets.toml.example` to `.streamlit/secrets.toml` and fill it in. Two options:
 
 - **Ollama (free, local):** install Ollama, run `ollama pull qwen2.5-coder:7b`, and keep the example values.
-- **A hosted provider:** any service with an OpenAI-compatible API. Set the model name, your key, and the provider's endpoint.
+- **A hosted provider:** any service with an OpenAI-compatible API. Set the model name, your key, and the provider's endpoint. For example, Google's Gemini API uses the endpoint `https://generativelanguage.googleapis.com/v1beta/openai/` with a key from [Google AI Studio](https://aistudio.google.com).
 
 Then:
 

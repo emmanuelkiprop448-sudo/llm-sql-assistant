@@ -113,6 +113,8 @@ def write_summary(records: list[dict], config: llm.LLMConfig, path: Path) -> Non
 def main() -> int:
     parser = argparse.ArgumentParser(description="Evaluate the configured model on the benchmark questions")
     parser.add_argument("--limit", type=int, help="Only run the first N questions")
+    parser.add_argument("--pause", type=float, default=0.0,
+                        help="Seconds to wait between questions, to stay within a free plan's rate limits")
     args = parser.parse_args()
 
     config = llm.load_config(_read_secrets_file())
@@ -127,7 +129,9 @@ def main() -> int:
     items = json.loads(QUESTIONS.read_text(encoding="utf-8"))[: args.limit]
 
     records = []
-    for item in items:
+    for number, item in enumerate(items):
+        if number and args.pause:
+            time.sleep(args.pause)
         record = evaluate_question(item, schema, config, conn)
         print(f"{record['id']}: {OUTCOMES[record['outcome']]}")
         records.append(record)
