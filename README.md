@@ -1,6 +1,6 @@
 # Chinook SQL Assistant: Natural-Language Questions with Guardrails and Evaluation
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/emmanuelkiprop448-sudo/llm-sql-assistant./blob/main/notebooks/run_in_colab.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/emmanuelkiprop448-sudo/llm-sql-assistant/blob/main/notebooks/run_in_colab.ipynb)
 
 A Streamlit app for asking questions about a sample music-store database in plain English. A language model writes the SQL; the app checks it with read-only guardrails, shows it for review and editing, and only then runs it. A separate evaluation script measures how often the model's SQL returns the correct answer on a set of benchmark questions.
 
